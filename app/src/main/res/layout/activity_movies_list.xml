@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MoviesListActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="model"
+            type="in.petsearch.knowthemovies.viewmodel.MoviesListViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MoviesListActivity">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listOfMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:setAdapter="@{model.getAdapter()}" />
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:id="@+id/spinnerLoading"
+            android:indeterminate="true"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:visibility="@{model.loading}"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{model.showEmpty}"
+            android:text="No Movies were returned."/>
+    </FrameLayout>
+</layout>
